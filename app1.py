@@ -4,13 +4,11 @@ import requests
 # Hugging Face API details
 API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo"
 
-HEADERS = {"Authorization": f"Bearer {API_KEY}"}
-
 # Function to generate a story using Hugging Face
 def generate_story_with_huggingface(user_idea):
     try:
         payload = {"inputs": f"Write a creative story based on this idea: {user_idea}"}
-        response = requests.post(API_URL, headers=HEADERS, json=payload)
+        response = requests.post(API_URL, json=payload)
         if response.status_code == 200:
             generated_text = response.json()
             return generated_text[0]["generated_text"]
@@ -23,7 +21,7 @@ def generate_story_with_huggingface(user_idea):
 def rewrite_story_with_huggingface(story):
     try:
         payload = {"inputs": f"Rewrite the following story to improve it: {story}"}
-        response = requests.post(API_URL, headers=HEADERS, json=payload)
+        response = requests.post(API_URL, json=payload)
         if response.status_code == 200:
             generated_text = response.json()
             return generated_text[0]["generated_text"]
